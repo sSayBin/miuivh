@@ -1,0 +1,7 @@
+git init
+git add .
+git remote rename heroku miuivh
+heroku git:remote -a miuivh
+git commit -m "using git for heroku deployment"
+
+git push heroku main
