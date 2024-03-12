@@ -107,6 +107,7 @@
     <h1 class="title" id="title">
         <a href="<!--base_path-->"><!--Sitename--></a>
     </h1>
+<!--
 <!--MultiDiskAreaStart-->
     <div class="list-wrapper" id="more-disk-div">
         <div class="list-container">
@@ -120,6 +121,7 @@
         </div>
     </div>
 <!--MultiDiskAreaEnd-->
+-->
 <!--HeadomfStart-->
     <div class="list-wrapper" id="head-om-div">
         <div class="list-container">
@@ -483,9 +485,9 @@
     <div style="color: rgba(247,247,249,0);"><!--FootStr--></div>
 </body>
 
+<!--ListStart-->
 <!--MdRequireStart--><link rel="stylesheet" href="//unpkg.zhimg.com/github-markdown-css@3.0.1/github-markdown.css">
 <script type="text/javascript" src="//unpkg.zhimg.com/marked@0.6.2/marked.min.js"></script><!--MdRequireEnd-->
-<!--ListStart-->
 <!--GuestUploadStart--><script type="text/javascript" src="//cdn.bootcss.com/spark-md5/3.0.0/spark-md5.min.js"></script><!--GuestUploadEnd-->
 <!--AliyundriveUploadJsStart--><script src="https://cdn.jsdelivr.net/npm/js-sha1@0.6.0/src/sha1.min.js"></script><!--AliyundriveUploadJsEnd-->
 <!--IsFileStart--><!--IspdfFileStart--><script src="//cdn.bootcss.com/pdf.js/2.3.200/pdf.min.js"></script><!--IspdfFileEnd--><!--IsFileEnd-->
@@ -519,53 +521,13 @@
             f.password1.value = sha1(timestamp + "" + f.password1.value);
             return true;
         } catch {
-            //alert("sha1.js not loaded.");
-            if (confirm("sha1.js not loaded.\n\nLoad from program?")) loadjs("?jsFile=sha1.min.js");
+            alert("sha1.js not loaded.");
             return false;
         }
     }
-    function loadjs(url) {
-        var xhr = new XMLHttpRequest;
-        xhr.open("GET", url);
-        xhr.onload = function(e) {
-            if (xhr.status==200) {
-                var script = document.createElement("script");
-                script.type = "text/javascript";
-                script.text = xhr.responseText;
-                document.body.appendChild(script);
-            } else {
-                console.log(xhr.response);
-            }
-        }
-        xhr.send(null);
-    }
 <!--LoginEnd-->
-<!--WriteTimezoneStart-->
-    var nowtime= new Date();
-    var timezone = 0-nowtime.getTimezoneOffset()/60;
-    var expd = new Date();
-    expd.setTime(expd.getTime()+(2*60*60*1000));
-    var expires = "expires="+expd.toGMTString();
-    document.cookie="timezone="+timezone+"; path=/; "+expires;
-    if (timezone!=<!--timezone-->) {
-        //alert('Your timezone is '+timezone+', reload local timezone.');
-        location.href=location.href;
-    }
-<!--WriteTimezoneEnd-->
-<!--HeadmdStart-->
-    var $head = document.getElementById('head');
-    if ($head) {
-        //document.getElementById('head-div').parentNode.insertBefore(document.getElementById('head-div'),document.getElementById('list-div'));
-        $head.innerHTML = marked(document.getElementById('head-md').innerText);
-    }
-<!--HeadmdEnd-->
-<!--ReadmemdStart-->
-    var $readme = document.getElementById('readme');
-    if ($readme) {
-        $readme.innerHTML = marked(document.getElementById('readme-md').innerText);
-    }
-<!--ReadmemdEnd-->
 <!--ListStart-->
+
 <!--IsFileStart-->
     var $url = document.getElementById('url');
     if ($url) {
@@ -691,6 +653,19 @@
 <!--IspdfFileEnd-->
 <!--IsFileEnd-->
 <!--IsFolderStart-->
+<!--HeadmdStart-->
+    var $head = document.getElementById('head');
+    if ($head) {
+        //document.getElementById('head-div').parentNode.insertBefore(document.getElementById('head-div'),document.getElementById('list-div'));
+        $head.innerHTML = marked(document.getElementById('head-md').innerText);
+    }
+<!--HeadmdEnd-->
+<!--ReadmemdStart-->
+    var $readme = document.getElementById('readme');
+    if ($readme) {
+        $readme.innerHTML = marked(document.getElementById('readme-md').innerText);
+    }
+<!--ReadmemdEnd-->
 <!--ShowThumbnailsStart-->
     function showthumbnails(obj) {
         images = [<!--ImgExts-->];
@@ -820,6 +795,19 @@
         return num;
     }
 <!--IsNotHiddenEnd-->
+<!--IsFolderEnd-->
+<!--WriteTimezoneStart-->
+    var nowtime= new Date();
+    var timezone = 0-nowtime.getTimezoneOffset()/60;
+    var expd = new Date();
+    expd.setTime(expd.getTime()+(2*60*60*1000));
+    var expires = "expires="+expd.toGMTString();
+    document.cookie="timezone="+timezone+"; path=/; "+expires;
+    if (timezone!=<!--timezone-->) {
+        alert('Your timezone is '+timezone+', reload local timezone.');
+        location.href=location.href;
+    }
+<!--WriteTimezoneEnd-->
     function CopyAllDownloadUrl(str) {
         var tmptextarea=document.createElement('textarea');
         document.body.appendChild(tmptextarea);
@@ -832,7 +820,6 @@
         document.execCommand("copy");
         alert(tmptextarea.innerHTML+"<!--constStr@Success-->");
     }
-<!--IsFolderEnd-->
 <!--UploadJsStart-->
     function size_format(num) {
         if (num>1024) {

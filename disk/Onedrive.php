@@ -57,27 +57,9 @@ class Onedrive {
                 if (isset($parentfiles['children'][$filename][$this->DownurlStrName])) {
                     if (in_array(splitlast($filename,'.')[1], $exts['txt'])) {
                         if (!(isset($parentfiles['children'][$filename]['content'])&&$parentfiles['children'][$filename]['content']['stat']==200)) {
-                            //$content1 = curl('GET', $parentfiles['children'][$filename][$this->DownurlStrName]);
-                            //$parentfiles['children'][$filename]['content'] = $content1;
-                            //savecache('path_' . $parentpath, $parentfiles, $this->disktag);
-                            if ($$parentfiles['children'][$filename]['size']<1024*1024) {
-                                if (!(isset($$parentfiles['children'][$filename]['content'])&&$$parentfiles['children'][$filename]['content']['stat']==200)) {
-                                    $content1 = curl('GET', $$parentfiles['children'][$filename][$this->DownurlStrName]);
-                                    $tmp = null;
-                                    $tmp = json_decode(json_encode($content1), true);
-                                    if ($tmp['body']===null) {
-                                        $txtcode = chkTxtCode($content1['body']);
-                                        if ($txtcode!==false) $tmp['body'] = iconv($txtcode, 'UTF-8//TRANSLIT', $content1['body']);
-                                        $tmp = json_decode(json_encode($tmp), true);
-                                        if ($tmp['body']) $content1['body'] = $tmp['body'];
-                                    }
-                                    $$parentfiles['children'][$filename]['content'] = $content1;
-                                    savecache('path_' . $path, $$parentfiles['children'][$filename], $this->disktag);
-                                }
-                            } else {
-                                $$parentfiles['children'][$filename]['content']['stat'] = 202;
-                                $$parentfiles['children'][$filename]['content']['body'] = 'File too large.';
-                            }
+                            $content1 = curl('GET', $parentfiles['children'][$filename][$this->DownurlStrName]);
+                            $parentfiles['children'][$filename]['content'] = $content1;
+                            savecache('path_' . $parentpath, $parentfiles, $this->disktag);
                         }
                     }
                     return $this->files_format($parentfiles['children'][$filename]);
@@ -125,10 +107,9 @@ class Onedrive {
                                 $tmp = null;
                                 $tmp = json_decode(json_encode($content1), true);
                                 if ($tmp['body']===null) {
-                                    $txtcode = chkTxtCode($content1['body']);
-                                    if ($txtcode!==false) $tmp['body'] = iconv($txtcode, 'UTF-8//TRANSLIT', $content1['body']);
+                                    $tmp['body'] = iconv("GBK", 'UTF-8//TRANSLIT', $content1['body']);
                                     $tmp = json_decode(json_encode($tmp), true);
-                                    if ($tmp['body']) $content1['body'] = $tmp['body'];
+                                    if ($tmp['body']!==null) $content1['body'] = $tmp['body'];
                                 }
                                 $files['content'] = $content1;
                                 savecache('path_' . $path, $files, $this->disktag);
@@ -829,7 +810,7 @@ class Onedrive {
                 alert("Do not input \"" + t.disktag_add.value + "\" in ' . getconstStr('DiskTag') . '");
                 return false;
             }
-            var reg = /^[a-zA-Z]([_a-zA-Z0-9]{1,})$/;
+            var reg = /^[a-zA-Z]([_a-zA-Z0-9]{1,20})$/;
             if (!reg.test(t.disktag_add.value)) {
                 alert(\'' . getconstStr('TagFormatAlert') . '\');
                 return false;

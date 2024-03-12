@@ -6,14 +6,14 @@ global $constStr;
 $exts['img'] = ['ico', 'bmp', 'gif', 'jpg', 'jpeg', 'jpe', 'jfif', 'tif', 'tiff', 'png', 'heic', 'webp'];
 $exts['music'] = ['mp3', 'wma', 'flac', 'ape', 'wav', 'ogg', 'm4a'];
 $exts['office'] = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
-$exts['txt'] = ['txt', 'log', 'bat', 'sh', 'php', 'asp', 'js', 'css', 'json', 'html', 'c', 'cpp', 'md', 'py', 'omf'];
+$exts['txt'] = ['txt', 'bat', 'sh', 'php', 'asp', 'js', 'css', 'json', 'html', 'c', 'cpp', 'md', 'py', 'omf'];
 $exts['video'] = ['mp4', 'webm', 'mkv', 'mov', 'flv', 'blv', 'avi', 'wmv', 'm3u8', 'rm', '3gp', 'rmvb'];
 $exts['zip'] = ['zip', 'rar', '7z', 'gz', 'tar'];
 
 $constStr = [
     'languages' => [
         'en-us' => 'English',
-        'zh-tw' => 'TIẾNG VIỆT',
+        'zh-tw' => '繁體中文',
         'zh-cn' => '简体中文',
         'ja' => '日本語',
         'ko-kr' => '한국어',
@@ -924,7 +924,7 @@ $constStr = [
         'ar-sa' => 'دليل أو اسم الملف يحتوي على تحميل فشلت',
     ],
     'defaultSitename' => [
-        'en-us' => 'MIUIVH-Việt Hoá China ROM',
+        'en-us' => 'OneManager',
     ],
     'SavingToken' => [
         'en-us' => 'Saving refresh_token!',
